@@ -1,0 +1,70 @@
+/* MODAL (CLEAN ME) */
+.werk {
+    display: none;
+    background: rgba(0,0,0,0.9);
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1000;
+}
+
+.werk.is-visible {
+    display: block;
+}
+
+.werk > img {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: auto;
+    max-width: 640px;
+    max-height: 100%;
+    z-index: 1001;
+    padding-top: 60px;
+}
+
+.werk > img.active {display: block}
+
+.werk .werk-tabs {
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 1002;
+    background: black;
+    height: 60px;
+}
+
+.werk .werk-tabs > li {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 0.25em 0.5em;
+    margin: 0 0.5em;
+    line-height: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.werk .werk-tabs > li.active {
+    background: white;
+    color: black;
+}
+
+.werk .close {
+    font-size: 0.75em;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1003;
+    cursor: pointer;
+    color: white;
+    text-transform: uppercase;
+    font-size: 38px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+}
