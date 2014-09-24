@@ -40,11 +40,16 @@
     display: inline-block;
     background: black;
     color: white;
-    padding: 0.25em 0.5em;
+    height: 60px;
+    width: 40px;
     margin: 0 0.5em;
     line-height: 60px;
     height: 60px;
     cursor: pointer;
+}
+
+.werk .werk-tabs > li:hover {
+    background: #333;
 }
 
 .werk .werk-tabs > li.active {
@@ -67,4 +72,8 @@
     height: 60px;
     text-align: center;
     line-height: 60px;
+}
+
+.werk .close:hover {
+    background-color: #C00;
 }
