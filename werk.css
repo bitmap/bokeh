@@ -1,9 +1,6 @@
-/* MODAL (CLEAN ME) */
 .werk {
-    display: none;
     background: rgba(0,0,0,0.9);
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
     z-index: 1000;
 }
 
@@ -12,43 +9,31 @@
 }
 
 .werk > img {
-    display: none;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
     margin: auto;
-    max-width: 640px;
     max-height: 100%;
-    z-index: 1001;
+    max-width: 640px;
     padding-top: 60px;
+    z-index: 1001;
 }
 
 .werk > img.active {display: block}
 
 .werk .werk-tabs {
-    position: relative;
     list-style: none;
     margin: 0 auto;
     padding: 0;
+    position: relative;
     width: 100%;
-    text-align: center;
     z-index: 1002;
-    background: black;
-    height: 60px;
 }
 
 .werk .werk-tabs > li {
     display: inline-block;
-    background: black;
-    color: white;
-    height: 60px;
-    width: 40px;
-    margin: 0 0.5em;
-    line-height: 60px;
-    height: 60px;
-    cursor: pointer;
+    z-index: 1003;
 }
 
-.werk .werk-tabs > li:hover {
+.werk .werk-tabs > li:hover,
+.werk .close:hover {
     background: #333;
 }
 
@@ -58,22 +43,34 @@
 }
 
 .werk .close {
-    font-size: 0.75em;
-    background: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
+    font-family: "Times New Roman";
+    font-size: 40px;
+    top: 0; left: 0;
     z-index: 1003;
-    cursor: pointer;
-    color: white;
-    text-transform: uppercase;
-    font-size: 38px;
-    width: 60px;
-    height: 60px;
-    text-align: center;
-    line-height: 60px;
 }
 
-.werk .close:hover {
-    background-color: #C00;
+.werk .close, 
+.werk .werk-tabs,
+.werk .werk-tabs li {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.werk .close,
+.werk .werk-tabs li {
+    width: 60px;
+    color: white;
+    cursor: pointer;
+}
+
+.werk, 
+.werk > img {
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: none;
+}
+
+.werk > img, 
+.werk .close {
+    position: absolute;
 }
