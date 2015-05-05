@@ -6,6 +6,7 @@
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 10000;
+  -webkit-transform: translateY(100%);
   transform: translateY(100%);
   visibility: hidden;
 }
@@ -16,6 +17,7 @@
     -webkit-filter 400ms ease,
     filter 400ms ease,
     visibility 800ms,
+    -webkit-transform 400ms ease;
     transform 400ms ease;
 }
 
@@ -26,6 +28,7 @@
 
 .werk.is-visible {
   visibility: visible;
+  -webkit-transform: translateY(0);
   transform: translateY(0);
 }
 
