@@ -1,7 +1,9 @@
 (function() {
   'use strict';
 
-  function makeWerk(werk) {
+  var notWerk = document.querySelector('.not-werk');
+
+  function makeModal(werk) {
 
     var tabClass = 'werk__tabs'
     ,   closeClass = 'werk__close';
@@ -31,9 +33,10 @@
 
       var closeBtn = werk.querySelector('.' + closeClass);
 
-    closeBtn.innerHTML = '×';
+    closeBtn.innerHTML = 'CLOSE';
     closeBtn.addEventListener('click', function() {
       werk.classList.remove('is-visible');
+      if (notWerk) notWerk.classList.remove('blur');
     });
 
     function tabClick(e) {
@@ -60,10 +63,11 @@
     }
   };
 
-  function getWerk(el) {
+  function showModal(el) {
     el.addEventListener('click', function() {
       var href = el.getAttribute('href').replace('#', '');
       document.getElementById(href).classList.add('is-visible');
+      if (notWerk) notWerk.classList.add('blur');
     });
   }
 
@@ -72,11 +76,11 @@
     each = Array.prototype.forEach;
 
   each.call(tabContainer, function(el) {
-    makeWerk(el);
+    makeModal(el);
   });
 
   each.call(link, function(el) {
-    getWerk(el);
+    showModal(el);
   });
 
 })();
