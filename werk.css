@@ -1,6 +1,7 @@
 .werk {
   background: rgba(0,0,0,0.75);
   font-size: 16px;
+  font-weight: bold;
   color: rgba(255,255,255,0.9);
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -50,6 +51,8 @@
 .werk__tabs > li {
   display: inline-block;
   z-index: 10003;
+  border-radius: 50%;
+  margin: 2px;
 }
 
 .werk__tabs > li:hover,
@@ -66,7 +69,6 @@
   cursor: pointer;
   bottom: 0; left: 0; right: 0;
   z-index: 10003;
-  color: #c00;
 }
 
 .werk__close,
