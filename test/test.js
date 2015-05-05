@@ -1,10 +1,10 @@
 var should  = chai.should(),
     modal   = document.getElementById('test');
-    tabList = document.querySelector('.werk-tabs'),
-    tabs    = document.querySelectorAll('.werk-tabs li'),
+    tabList = document.querySelector('.werk__tabs'),
+    tabs    = document.querySelectorAll('.werk__tabs li'),
     lastTab = tabs.length - 1,
     imgs    = document.querySelectorAll('img'),
-    close   = document.querySelector('.close'),
+    close   = document.querySelector('.werk__close'),
     src     = document.querySelector('img').hasAttribute('src'),
     datasrc = document.querySelector('img').hasAttribute('data-src'),
     link    = document.querySelector('.werk-link');
@@ -43,7 +43,7 @@ describe('Events', function(){
 
     it('clicked a tab', function () {
          tabs[lastTab].click();
-         tabs[lastTab].className.should.equal('active');
+         tabs[lastTab].className.should.equal('is-active');
     })
 
     it('closed successfully', function () {
