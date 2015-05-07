@@ -45,7 +45,6 @@
     });
 
     function tabClick() {
-
       for (i = 0; i < tabCount; i++) {
         if (i == this.getAttribute('data-index')) makeActive();
         else removeActive();
