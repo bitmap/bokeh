@@ -1,13 +1,14 @@
-var should  = chai.should(),
-    modal   = document.getElementById('test');
-    tabList = document.querySelector('.werk__tabs'),
-    tabs    = document.querySelectorAll('.werk__tabs li'),
-    lastTab = tabs.length - 1,
-    imgs    = document.querySelectorAll('img'),
-    close   = document.querySelector('.werk__close'),
-    src     = document.querySelector('img').hasAttribute('src'),
-    datasrc = document.querySelector('img').hasAttribute('data-src'),
-    link    = document.querySelector('.werk-link');
+var should  = chai.should()
+,   modal   = document.getElementById('test')
+,   tabList = document.querySelector('.bokeh__tabs')
+,   tabs    = document.querySelectorAll('.bokeh__tabs li')
+,   i       = tabs.length
+,   imgs    = document.querySelectorAll('img')
+,   close   = document.querySelector('.bokeh__close')
+,   src     = document.querySelector('img').hasAttribute('src')
+,   datasrc = document.querySelector('img').hasAttribute('data-src')
+,   link    = document.querySelector('.bokeh-link')
+,   active  = 'is-active';
 
 describe('DOM', function(){
     it('created tab list', function() {
@@ -38,16 +39,30 @@ describe('Events', function(){
 
     it('opened successfully', function () {
          link.click();
-         modal.className.should.equal('werk is-visible');
+         modal.className.should.equal('bokeh is-visible');
+         tabs[0].className.should.equal(active);
+         imgs[0].className.should.equal(active);
+
     })
 
-    it('clicked a tab', function () {
-         tabs[lastTab].click();
-         tabs[lastTab].className.should.equal('is-active');
+    it('clicked second tab', function () {
+         tabs[1].click();
+         tabs[1].className.should.equal(active);
+         tabs[0].className.should.not.equal(active);
+         imgs[0].className.should.not.equal(active);
+         imgs[1].className.should.equal(active);
+    })
+
+    it('clicked last tab', function () {
+         tabs[i - 1].click();
+         tabs[i - 1].className.should.equal(active);
+         imgs[i - 1].className.should.equal(active);
+         tabs[0].className.should.not.equal(active);
+
     })
 
     it('closed successfully', function () {
          close.click();
-         modal.className.should.equal('werk');
+         modal.className.should.equal('bokeh');
     })
 })
