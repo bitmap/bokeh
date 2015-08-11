@@ -49,8 +49,8 @@
       function tabClick() {
         var tab = this;
         for (i = 0; i < tabCount; i++) {
-          if (tab.getAttribute('data-index') == i) bokeh.makeActive(imgs[i], tabs[i]);
-          else bokeh.removeActive(imgs[i], tabs[i]);
+          if (tab.getAttribute('data-index') == i) bokeh.makeActive(imgs[i], tabItems[i]);
+          else bokeh.removeActive(imgs[i], tabItems[i]);
         }
       }
     },
