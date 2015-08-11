@@ -1,12 +1,11 @@
 .bokeh {
   background: rgba(0,0,0,0.75);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   color: rgba(255,255,255,0.9);
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: 10000;
-  -webkit-transform: translateY(100%);
   transform: translateY(100%);
   visibility: hidden;
 }
@@ -14,21 +13,17 @@
 .bokeh,
 .bokeh-blur {
   transition:
-    -webkit-filter 400ms ease,
     filter 400ms ease,
     visibility 800ms,
-    -webkit-transform 400ms ease,
     transform 400ms ease;
 }
 
 .bokeh-blur.has-blur {
-  -webkit-filter: blur(10px);
   filter: blur(10px);
 }
 
 .bokeh.is-visible {
   visibility: visible;
-  -webkit-transform: translateY(0);
   transform: translateY(0);
 }
 
@@ -55,7 +50,7 @@
   display: inline-block;
   z-index: 10003;
   border-radius: 50%;
-  margin: 5px;
+  margin: 0.5rem;
 }
 
 .bokeh__tabs > li:hover,
@@ -77,14 +72,14 @@
 .bokeh__close,
 .bokeh__tabs,
 .bokeh__tabs li {
-  height: 45px;
-  line-height: 45px;
+  height: 3rem;
+  line-height: 3rem;
   text-align: center;
   transition: 200ms ease;
 }
 
 .bokeh__tabs li {
-  width: 45px;
+  width: 3rem;
   cursor: pointer;
 }
 

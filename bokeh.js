@@ -3,21 +3,22 @@
   var tabContainer = document.querySelectorAll('.bokeh')
   ,   blurContainer = document.querySelector('.bokeh-blur')
   ,   anchor = document.querySelectorAll('.bokeh-link')
-  ,   each = Array.prototype.forEach;
+  ,   each = Array.prototype.forEach
+  ,   ACTIVE_CLASS = 'is-active';
 
-  var makeModal = (function(el) {
-
+  var bokeh = {
+    init: function(el) {
     // Create the tab container and close button
     el.appendChild(document.createElement('ul')).className = 'bokeh__tabs';
     el.appendChild(document.createElement('div')).className = 'bokeh__close';
 
-    var tabHolder = el.querySelector('.bokeh__tabs')
+    var bokeh = this
+    ,   tabHolder = el.querySelector('.bokeh__tabs')
     ,   tabItems = tabHolder.children
     ,   imgs = el.querySelectorAll('img')
     ,   firstImg = imgs[0]
     ,   tabCount = imgs.length
     ,   closeBtn = el.querySelector('.bokeh__close')
-    ,   activeClass = 'is-active'
     ,   li, i;
 
     // Make a new tab for each image
@@ -34,8 +35,8 @@
     // Set the first image and tab as active
     firstImg.setAttribute('src', firstImg.getAttribute('data-src'));
     firstImg.removeAttribute('data-src');
-    firstImg.classList.add(activeClass);
-    tabItems[0].classList.add(activeClass);
+    firstImg.classList.add(ACTIVE_CLASS);
+    tabItems[0].classList.add(ACTIVE_CLASS);
 
     // Tidy up the close button
     closeBtn.innerHTML = 'CLOSE';
@@ -45,42 +46,45 @@
     });
 
     function tabClick() {
+      var tab = this;
       for (i = 0; i < tabCount; i++) {
-        if (i == this.getAttribute('data-index')) makeActive();
-        else removeActive();
-      }
-
-      function makeActive() {
-        if (imgs[i].hasAttribute('data-src')) {
-          imgs[i].setAttribute('src', imgs[i].getAttribute('data-src'));
-          imgs[i].removeAttribute('data-src');
-        }
-
-        tabItems[i].classList.add(activeClass);
-        imgs[i].classList.add(activeClass);
-      }
-
-      function removeActive() {
-        tabItems[i].classList.remove(activeClass);
-        imgs[i].classList.remove(activeClass);
+        if (tab.getAttribute('data-index') == i) bokeh.makeActive(imgs[i], tabs[i]);
+        else bokeh.removeActive(imgs[i], tabs[i]);
       }
     }
-  });
+  },
 
-  var showModal = (function(el) {
+  makeActive: function(img, tabs) {
+    if (img.hasAttribute('data-src')) {
+      img.setAttribute('src', img.getAttribute('data-src'));
+      img.removeAttribute('data-src');
+    }
+
+    tabs.classList.add(ACTIVE_CLASS);
+    img.classList.add(ACTIVE_CLASS);
+  },
+
+  removeActive: function(img, tabs) {
+    tabs.classList.remove(ACTIVE_CLASS);
+    img.classList.remove(ACTIVE_CLASS);
+  },
+
+
+  showModal: function(el) {
     el.addEventListener('click', function() {
       var href = el.getAttribute('href').replace('#', '');
       document.getElementById(href).classList.add('is-visible');
       if (blurContainer) blurContainer.classList.add('has-blur');
     });
-  });
+  }
+};
 
   each.call(tabContainer, function(el) {
-    makeModal(el);
+    bokeh.init(el);
   });
 
   each.call(anchor, function(el) {
-    showModal(el);
+    bokeh.showModal(el);
   });
 
 })();
