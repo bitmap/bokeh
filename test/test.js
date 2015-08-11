@@ -42,7 +42,6 @@ describe('Events', function(){
          modal.className.should.equal('bokeh is-visible');
          tabs[0].className.should.equal(active);
          imgs[0].className.should.equal(active);
-
     })
 
     it('clicked second tab', function () {
@@ -58,7 +57,6 @@ describe('Events', function(){
          tabs[i - 1].className.should.equal(active);
          imgs[i - 1].className.should.equal(active);
          tabs[0].className.should.not.equal(active);
-
     })
 
     it('closed successfully', function () {
