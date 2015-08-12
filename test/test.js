@@ -10,6 +10,7 @@ var should  = chai.should()
 ,   MODAL   = document.getElementById('test')
 ,   TABLIST = $('.bokeh__tabs')
 ,   TABS    = $$('.bokeh__tabs li')
+,   BLUR    = $('.bokeh-blur')
 ,   i       = TABS.length
 ,   IMGS    = $$('img')
 ,   CLOSE   = $('.bokeh__close')
@@ -48,6 +49,7 @@ describe('Events', function(){
     it('opened successfully', function () {
          LINK.click();
          MODAL.className.should.equal('bokeh is-visible');
+         BLUR.className.should.equal('bokeh-blur has-blur')
          TABS[0].className.should.equal(ACTIVE);
          IMGS[0].className.should.equal(ACTIVE);
     })
