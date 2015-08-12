@@ -17,27 +17,30 @@
       var tabHolder = el.querySelector('.bokeh__tabs')
       ,   tabItems = tabHolder.children
       ,   imgs = el.querySelectorAll('img')
-      ,   firstImg = imgs[0]
-      ,   tabCount = imgs.length
       ,   closeBtn = el.querySelector('.bokeh__close')
       ,   li, i;
 
       // Make a new tab for each image
-      for (i = 0; i < tabCount; i++) {
+      for (i = 0; i < imgs.length; i++) {
         li = document.createElement('li');
         tabHolder.appendChild(li);
         li.setAttribute('data-index', i);
         li.innerHTML = i + 1;
-
-        // Attach event
-        li.addEventListener('click', tabClick);
       }
 
+      each.call(tabItems, function(index) {
+        index.addEventListener('click', function() {
+          for (i = 0; i < imgs.length; i++) {
+            if (index.getAttribute('data-index') == i) {
+              bokeh.makeActive(imgs[i], tabItems[i]);
+            }
+            else bokeh.removeActive(imgs[i], tabItems[i]);
+          }
+        });
+      });
+
       // Set the first image and tab as active
-      firstImg.setAttribute('src', firstImg.getAttribute('data-src'));
-      firstImg.removeAttribute('data-src');
-      firstImg.classList.add(ACTIVE_CLASS);
-      tabItems[0].classList.add(ACTIVE_CLASS);
+      bokeh.makeActive(imgs[0], tabItems[0]);
 
       // Tidy up the close button
       closeBtn.innerHTML = 'CLOSE';
@@ -45,14 +48,6 @@
        el.classList.remove('is-visible');
        if (blurContainer) blurContainer.classList.remove('has-blur');
       });
-
-      function tabClick() {
-        var tab = this;
-        for (i = 0; i < tabCount; i++) {
-          if (tab.getAttribute('data-index') == i) bokeh.makeActive(imgs[i], tabItems[i]);
-          else bokeh.removeActive(imgs[i], tabItems[i]);
-        }
-      }
     },
 
     makeActive: function(img, tabs) {
