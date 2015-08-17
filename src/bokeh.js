@@ -1,10 +1,12 @@
-(function() { 'use strict';
+(function() {
+  'use strict';
 
   var ACTIVE_CLASS = 'is-active'
-  ,   bokehContainers = document.querySelectorAll('.bokeh')
-  ,   blurContainer = document.querySelector('.bokeh-blur')
-  ,   bokehAnchors = document.querySelectorAll('.bokeh-link')
-  ,   each = Array.prototype.forEach;
+  ,   containers = document.querySelectorAll('.bokeh')
+  ,   anchors = document.querySelectorAll('.bokeh-link')
+  ,   blurEl = document.querySelector('.bokeh-blur')
+  ,   each = Array.prototype.forEach
+  ;
 
   var bokeh = {
     init: function(el) {
@@ -18,7 +20,8 @@
       ,   tabItems = tabHolder.children
       ,   imgs = el.querySelectorAll('img')
       ,   closeBtn = el.querySelector('.bokeh__close')
-      ,   li, i;
+      ,   li, i
+      ;
 
       // Make a new tab for each image
       for (i = 0; i < imgs.length; i++) {
@@ -46,7 +49,7 @@
       closeBtn.innerHTML = 'CLOSE';
       closeBtn.addEventListener('click', function() {
        el.classList.remove('is-visible');
-       if (blurContainer) blurContainer.classList.remove('has-blur');
+       if (blurEl) blurEl.classList.remove('has-blur');
       });
     },
 
@@ -70,16 +73,16 @@
       el.addEventListener('click', function() {
         var href = el.getAttribute('href').replace('#', '');
         document.getElementById(href).classList.add('is-visible');
-        if (blurContainer) blurContainer.classList.add('has-blur');
+        if (blurEl) blurEl.classList.add('has-blur');
       });
     }
   };
 
-  each.call(bokehContainers, function(el) {
+  each.call(containers, function(el) {
     bokeh.init(el);
   });
 
-  each.call(bokehAnchors, function(el) {
+  each.call(anchors, function(el) {
     bokeh.showModal(el);
   });
 
