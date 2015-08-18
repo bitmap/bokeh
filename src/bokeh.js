@@ -1,8 +1,7 @@
 (function() {
   'use strict';
 
-  var ACTIVE_CLASS = 'is-active'
-  ,   containers = document.querySelectorAll('.bokeh')
+  var containers = document.querySelectorAll('.bokeh')
   ,   anchors = document.querySelectorAll('.bokeh-link')
   ,   blurEl = document.querySelector('.bokeh-blur')
   ,   each = Array.prototype.forEach
@@ -20,24 +19,24 @@
       bokeh.createCloseButton(el);
 
       // Attach events
-      tabs = el.querySelectorAll('.bokeh__tabs li');
-      bokeh.tabClickHandler(imgs, tabs);
-      bokeh.makeActive(imgs[0], tabs[0]);
+      tabs = el.querySelectorAll('.bokeh__tabs > li');
+      bokeh.setActive(tabs[0], imgs[0]);
     },
 
     createTabs: function(el, imgs) {
       // Make a container for the tabs
       el.appendChild(document.createElement('ul')).className = 'bokeh__tabs';
-      var tabs = el.querySelector('.bokeh__tabs'), i, li;
+      var tabs = el.querySelector('.bokeh__tabs'), li;
 
-      // For each image in container, make an li
-      for (i = 0; i < imgs.length; i++) {
+      // Make a tab for each image
+      each.call(imgs, function(img, idx) {
         li = document.createElement('li');
         tabs.appendChild(li);
-        li.setAttribute('data-index', i);
-        imgs[i].setAttribute('data-index', i);
-        li.innerHTML = i + 1;
-      }
+        li.setAttribute('data-index', idx);
+        img.setAttribute('data-index', idx);
+        li.innerHTML = idx + 1;
+        bokeh.tabClickHandler(li, img);
+      });
     },
 
     createCloseButton: function(el) {
@@ -53,33 +52,31 @@
       });
     },
 
-    tabClickHandler: function(imgs, tabs) {
-      each.call(tabs, function(el) {
-        el.addEventListener('click', function() {
-          for (var i = 0; i < tabs.length; i++) {
-            if (el.getAttribute('data-index') === imgs[i].getAttribute('data-index')) {
-              bokeh.makeActive(imgs[i], tabs[i]);
-            }
-            else bokeh.removeActive(imgs[i], tabs[i]);
-          }
-        });
+    tabClickHandler: function(tab, img) {
+      tab.addEventListener('click', function() {
+        if (tab.getAttribute('data-index') === img.getAttribute('data-index')) {
+          bokeh.setActive(tab, img);
+        }
       });
     },
 
-    makeActive: function(img, tab) {
+    setActive: function(tab, img) {
+      var ACTIVE_CLASS = 'is-active';
+
+      if (parent(tab) !== null) parent(tab).classList.remove(ACTIVE_CLASS);
+      if (parent(img) !== null) parent(img).classList.remove(ACTIVE_CLASS);
+
       if (img.hasAttribute('data-src')) {
         img.setAttribute('src', img.getAttribute('data-src'));
         img.removeAttribute('data-src');
       }
       tab.classList.add(ACTIVE_CLASS);
       img.classList.add(ACTIVE_CLASS);
-    },
 
-    removeActive: function(img, tab) {
-      tab.classList.remove(ACTIVE_CLASS);
-      img.classList.remove(ACTIVE_CLASS);
+      function parent(e) {
+        return e.parentNode.querySelector('.is-active');
+      }
     },
-
 
     showModal: function(el) {
       el.addEventListener('click', function() {
