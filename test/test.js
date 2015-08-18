@@ -43,13 +43,13 @@ describe('DOM', function() {
     t.should.equal(IMGS.length);
   })
 
-  it('created close button', function() {
-    CLOSE.should.not.equal(null);
-  })
-
-  it('data-src => src', function() {
+  it('data-src' + ' \u2192 ' + 'src', function() {
     SRC.should.equal(true);
     DATASRC.should.equal(false);
+  })
+
+  it('created close button', function() {
+    CLOSE.should.not.equal(null);
   })
 
   it('tabs have data-index attr', function() {
@@ -70,6 +70,11 @@ describe('Events', function() {
 
   it('blur on', function() {
     BLUR.className.should.equal('bokeh-blur has-blur')
+  })
+
+  it('first tab selected', function() {
+    TABS[0].className.should.equal(ACTIVE);
+    IMGS[0].className.should.equal(ACTIVE);
   })
 
   it('clicked second tab', function() {

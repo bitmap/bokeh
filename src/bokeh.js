@@ -10,69 +10,84 @@
 
   var bokeh = {
     init: function(el) {
-      var bokeh = this;
-
-      // Create the tab container and close button
-      el.appendChild(document.createElement('ul')).className = 'bokeh__tabs';
-      el.appendChild(document.createElement('div')).className = 'bokeh__close';
-
-      var tabHolder = el.querySelector('.bokeh__tabs')
-      ,   tabItems = tabHolder.children
-      ,   imgs = el.querySelectorAll('img')
-      ,   closeBtn = el.querySelector('.bokeh__close')
-      ,   li, i
+      var bokeh = this
+      , imgs, tabs
       ;
 
-      // Make a new tab for each image
+      // Create DOM elements
+      imgs = el.querySelectorAll('img');
+      bokeh.createTabs(el, imgs);
+      bokeh.createCloseButton(el);
+
+      // Attach events
+      tabs = el.querySelectorAll('.bokeh__tabs li');
+      bokeh.tabClickHandler(imgs, tabs);
+      bokeh.makeActive(imgs[0], tabs[0]);
+    },
+
+    createTabs: function(el, imgs) {
+      // Make a container for the tabs
+      el.appendChild(document.createElement('ul')).className = 'bokeh__tabs';
+      var tabs = el.querySelector('.bokeh__tabs'), i, li;
+
+      // For each image in container, make an li
       for (i = 0; i < imgs.length; i++) {
         li = document.createElement('li');
-        tabHolder.appendChild(li);
+        tabs.appendChild(li);
         li.setAttribute('data-index', i);
+        imgs[i].setAttribute('data-index', i);
         li.innerHTML = i + 1;
       }
+    },
 
-      each.call(tabItems, function(index) {
-        index.addEventListener('click', function() {
-          for (i = 0; i < imgs.length; i++) {
-            if (index.getAttribute('data-index') == i) {
-              bokeh.makeActive(imgs[i], tabItems[i]);
-            }
-            else bokeh.removeActive(imgs[i], tabItems[i]);
-          }
-        });
-      });
-
-      // Set the first image and tab as active
-      bokeh.makeActive(imgs[0], tabItems[0]);
-
-      // Tidy up the close button
+    createCloseButton: function(el) {
+      // Make a close button
+      el.appendChild(document.createElement('div')).className = 'bokeh__close';
+      var closeBtn = el.querySelector('.bokeh__close');
       closeBtn.innerHTML = 'CLOSE';
+
+      // Attach click handler to close modal
       closeBtn.addEventListener('click', function() {
        el.classList.remove('is-visible');
        if (blurEl) blurEl.classList.remove('has-blur');
       });
     },
 
-    makeActive: function(img, tabs) {
+    tabClickHandler: function(imgs, tabs) {
+      each.call(tabs, function(el) {
+        el.addEventListener('click', function() {
+          for (var i = 0; i < tabs.length; i++) {
+            if (el.getAttribute('data-index') === imgs[i].getAttribute('data-index')) {
+              bokeh.makeActive(imgs[i], tabs[i]);
+            }
+            else bokeh.removeActive(imgs[i], tabs[i]);
+          }
+        });
+      });
+    },
+
+    makeActive: function(img, tab) {
       if (img.hasAttribute('data-src')) {
         img.setAttribute('src', img.getAttribute('data-src'));
         img.removeAttribute('data-src');
       }
-
-      tabs.classList.add(ACTIVE_CLASS);
+      tab.classList.add(ACTIVE_CLASS);
       img.classList.add(ACTIVE_CLASS);
     },
 
-    removeActive: function(img, tabs) {
-      tabs.classList.remove(ACTIVE_CLASS);
+    removeActive: function(img, tab) {
+      tab.classList.remove(ACTIVE_CLASS);
       img.classList.remove(ACTIVE_CLASS);
     },
 
 
     showModal: function(el) {
       el.addEventListener('click', function() {
-        var href = el.getAttribute('href').replace('#', '');
-        document.getElementById(href).classList.add('is-visible');
+        var href = el.getAttribute('href').replace('#', '')
+        ,   modal = document.getElementById(href)
+        ;
+
+        modal.classList.add('is-visible');
         if (blurEl) blurEl.classList.add('has-blur');
       });
     }
