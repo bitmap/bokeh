@@ -13,20 +13,22 @@ gulp.task('css', function () {
     autoprefixer({browsers: ['last 1 version']}),
     pixrem()
   ];
-  return gulp.src('./src/bokeh.css')
+  return gulp.src('src/bokeh.css')
     .pipe(postcss(processors))
+    .pipe(gulp.dest('dist'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('js', function() {
-  return gulp.src('./src/bokeh.js')
+  return gulp.src('src/bokeh.js')
     .pipe(jshint({laxcomma:true}))
     .pipe(jshint.reporter('default'))
+    .pipe(gulp.dest('dist'))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('test', function () {
