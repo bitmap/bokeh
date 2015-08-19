@@ -1,36 +1,37 @@
 (function() {
   'use strict';
 
-  var containers = document.querySelectorAll('.bokeh')
-  ,   anchors = document.querySelectorAll('.bokeh-link')
-  ,   blurEl = document.querySelector('.bokeh-blur')
-  ,   each = Array.prototype.forEach
-  ;
+  var containers = $all('.bokeh')
+    , anchors = $all('.bokeh-link')
+    , blurEl = $('.bokeh-blur')
+    ;
 
   var bokeh = {
     init: function(el) {
       var bokeh = this
-      , imgs, tabs
-      ;
+        , imgs, tabs
+        ;
 
       // Create DOM elements
-      imgs = el.querySelectorAll('img');
+      imgs = $all('img', el);
       bokeh.createTabs(el, imgs);
       bokeh.createCloseButton(el);
 
       // Attach events
-      tabs = el.querySelectorAll('.bokeh__tabs > li');
+      tabs = $all('.bokeh__tabs > li', el);
       bokeh.setActive(tabs[0], imgs[0]);
     },
 
     createTabs: function(el, imgs) {
       // Make a container for the tabs
-      el.appendChild(document.createElement('ul')).className = 'bokeh__tabs';
-      var tabs = el.querySelector('.bokeh__tabs'), li;
+      el.appendChild(make('ul')).className = 'bokeh__tabs';
+      var tabs = $('.bokeh__tabs', el)
+        , li
+        ;
 
       // Make a tab for each image
-      each.call(imgs, function(img, idx) {
-        li = document.createElement('li');
+      each(imgs, function(img, idx) {
+        li = make('li');
         tabs.appendChild(li);
         li.setAttribute('data-index', idx);
         img.setAttribute('data-index', idx);
@@ -41,8 +42,8 @@
 
     createCloseButton: function(el) {
       // Make a close button
-      el.appendChild(document.createElement('div')).className = 'bokeh__close';
-      var closeBtn = el.querySelector('.bokeh__close');
+      el.appendChild(make('div')).className = 'bokeh__close';
+      var closeBtn = $('.bokeh__close', el);
       closeBtn.innerHTML = 'CLOSE';
 
       // Attach click handler to close modal
@@ -81,8 +82,8 @@
     showModal: function(el) {
       el.addEventListener('click', function() {
         var href = el.getAttribute('href').replace('#', '')
-        ,   modal = document.getElementById(href)
-        ;
+          , modal = document.getElementById(href)
+          ;
 
         modal.classList.add('is-visible');
         if (blurEl) blurEl.classList.add('has-blur');
@@ -90,12 +91,29 @@
     }
   };
 
-  each.call(containers, function(el) {
+  each(containers, function(el) {
     bokeh.init(el);
   });
 
-  each.call(anchors, function(el) {
+  each(anchors, function(el) {
     bokeh.showModal(el);
   });
+
+  // Helpers
+  function each(el, fn) {
+    Array.prototype.forEach.call(el, fn);
+  }
+
+  function make(el) {
+    return document.createElement(el);
+  }
+
+  function $(selector, node) {
+    return (node || document).querySelector(selector);
+  }
+
+  function $all(selector, node) {
+    return (node || document).querySelectorAll(selector);
+  }
 
 })();
