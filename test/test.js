@@ -1,10 +1,4 @@
-function $(e) {
-  return document.querySelector(e);
-}
-
-function $$(e) {
-  return document.querySelectorAll(e);
-}
+var should  = chai.should()
 
 // Appease PhantomJS
 function click(el){
@@ -20,19 +14,19 @@ function click(el){
     el.dispatchEvent(ev);
 }
 
-var should  = chai.should()
-,   MODAL   = document.getElementById('test')
-,   TABLIST = $('.bokeh__tabs')
-,   TABS    = $$('.bokeh__tabs li')
-,   BLUR    = $('.bokeh-blur')
-,   IMGS    = $$('img')
-,   CLOSE   = $('.bokeh__close')
-,   SRC     = $('img').hasAttribute('src')
-,   DATASRC = $('img').hasAttribute('data-src')
-,   LINK    = $('.bokeh-link')
-,   ACTIVE  = 'is-active'
-,   t       = TABS.length
-;
+click(document.querySelector('.bokeh-link'));
+
+var MODAL   = document.querySelector('.bokeh')
+  , BLUR    = document.querySelector('.bokeh-blur')
+  , TABLIST = MODAL.querySelector('.bokeh__tabs')
+  , TABS    = MODAL.querySelectorAll('.bokeh__tabs li')
+  , IMGS    = MODAL.querySelectorAll('img')
+  , CLOSE   = MODAL.querySelector('.bokeh__close')
+  , SRC     = MODAL.querySelector('img').hasAttribute('src')
+  , DATASRC = MODAL.querySelector('img').hasAttribute('data-src')
+  , ACTIVE  = 'is-active'
+  , t       = TABS.length
+  ;
 
 describe('DOM', function() {
   it('created tabs container', function() {
@@ -62,7 +56,6 @@ describe('DOM', function() {
 describe('Events', function() {
 
   it('opened', function() {
-    click(LINK);
     MODAL.className.should.equal('bokeh is-visible');
     TABS[0].className.should.equal(ACTIVE);
     IMGS[0].className.should.equal(ACTIVE);
