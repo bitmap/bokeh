@@ -63,17 +63,17 @@
     },
 
     setActive: function(tab, img) {
-      var ACTIVE_CLASS = 'is-active';
+      var active = 'is-active';
 
-      if (parent(tab) !== null) parent(tab).classList.remove(ACTIVE_CLASS);
-      if (parent(img) !== null) parent(img).classList.remove(ACTIVE_CLASS);
+      if (parent(tab) !== null) parent(tab).classList.remove(active);
+      if (parent(img) !== null) parent(img).classList.remove(active);
 
       if (img.hasAttribute('data-src')) {
         img.setAttribute('src', img.getAttribute('data-src'));
         img.removeAttribute('data-src');
       }
-      tab.classList.add(ACTIVE_CLASS);
-      img.classList.add(ACTIVE_CLASS);
+      tab.classList.add(active);
+      img.classList.add(active);
 
       function parent(e) {
         return e.parentNode.querySelector('.is-active');
