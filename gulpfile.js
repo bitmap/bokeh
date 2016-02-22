@@ -36,4 +36,4 @@ gulp.task('test', function () {
   .pipe(mochaPhantomJS());
 });
 
-gulp.task('default', ['css', 'js', 'test'])
+gulp.task('default', ['css', 'js', 'test']);
