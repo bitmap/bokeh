@@ -56,7 +56,10 @@
 }
 
 .bokeh__tabs > li:hover,
+.bokeh__next:hover,
+.bokeh__prev:hover,
 .bokeh__close:hover {
+  cursor: pointer;
   background-color: rgba(0,0,0,0.5);
 }
 
@@ -67,10 +70,14 @@
 
 .bokeh__close {
   cursor: pointer;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0; right: 0; left: 0;
   z-index: 10003;
+  display: block;
+  width: 100%;
 }
 
+.bokeh__next,
+.bokeh__prev,
 .bokeh__close,
 .bokeh__tabs,
 .bokeh__tabs li {
@@ -93,4 +100,30 @@
 .bokeh > img,
 .bokeh__close {
   position: absolute;
+}
+
+.bokeh__close,
+.bokeh__next,
+.bokeh__prev {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.bokeh__next,
+.bokeh__prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15vw;
+  height: 25vh;
+}
+
+.bokeh__next {
+  right: 0;
+}
+.bokeh__prev {
+  left: 0;
 }
